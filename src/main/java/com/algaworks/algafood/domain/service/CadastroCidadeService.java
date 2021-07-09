@@ -14,7 +14,7 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 
 @Service
 public class CadastroCidadeService {
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
@@ -25,11 +25,13 @@ public class CadastroCidadeService {
 		Long estadoId = cidade.getEstado().getId();
 		Estado estado = estadoRepository.buscar(estadoId);
 		
-		if(estado == null) {
+		if (estado == null) {
 			throw new EntidadeNaoEncontradaException(
-					String.format("Não existe cadastro de cidade com código %d", estadoId));
+				String.format("Não existe cadastro de estado com código %d", estadoId));
 		}
+		
 		cidade.setEstado(estado);
+		
 		return cidadeRepository.salvar(cidade);
 	}
 	
@@ -39,11 +41,12 @@ public class CadastroCidadeService {
 			
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
-					String.format("Não existe um cadastro de cidade com código %d", cidadeId));
+				String.format("Não existe um cadastro de cidade com código %d", cidadeId));
+		
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format("Codigo de cidade %d não pode ser removido, pois está em uso", cidadeId));
+				String.format("Cidade de código %d não pode ser removida, pois está em uso", cidadeId));
 		}
 	}
-
+	
 }

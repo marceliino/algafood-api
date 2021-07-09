@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Cidade {
-	
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,7 @@ public class Cidade {
 	private String nome;
 	
 	@ManyToOne
-	@JoinColumn(name = "estado_id", nullable = false)
+	@JoinColumn(nullable = false)
 	private Estado estado;
+
 }
